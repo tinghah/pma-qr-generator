@@ -7,6 +7,8 @@ on:
 
 permissions:
   contents: write
+  pages: write
+  id-token: write
 
 jobs:
   build-and-deploy:
@@ -18,15 +20,18 @@ jobs:
       - name: Setup Node.js ⚙️
         uses: actions/setup-node@v4
         with:
-          node-version: 22
+          node-version: 20 # Using 20 (LTS) is often more stable than 22 for CI
+          cache: 'npm'     # Change to 'yarn' if you definitely use yarn.lock
 
       - name: Install and Build 🔧
         run: |
-          yarn install
-          yarn build
+          npm install      # Standardize to npm to avoid the "Exit handler" bug
+          npm run build
 
       - name: Deploy 🚀
         uses: peaceiris/actions-gh-pages@v4
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
           publish_dir: ./dist
+          # This ensures the .nojekyll file is added so Vite assets work
+          enable_jekyll: false
