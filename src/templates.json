@@ -1,0 +1,35 @@
+[
+  {
+    "id": "poc-default",
+    "name": "PMA Official",
+    "description": "Official blue frame with PMA branding.",
+    "hasFrame": true,
+    "primaryColor": "#0066cc",
+    "textColor": "#0b0f1a",
+    "label": "PMA - B150",
+    "logo": "/logo.png",
+    "logoCenter": true
+  },
+  {
+    "id": "clean",
+    "name": "Minimalist",
+    "description": "Pure QR code without any decorations.",
+    "hasFrame": false,
+    "primaryColor": "transparent",
+    "textColor": "#000000",
+    "label": "",
+    "logo": null,
+    "logoCenter": false
+  },
+  {
+    "id": "dark-glass",
+    "name": "Premium Glass",
+    "description": "Digital style with transparency.",
+    "hasFrame": true,
+    "primaryColor": "#0b0f1a",
+    "textColor": "#ffffff",
+    "label": "POUCHEN SECURE",
+    "logo": "/logo.png",
+    "logoCenter": true
+  }
+]

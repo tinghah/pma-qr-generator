@@ -1,0 +1,221 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <link rel="icon" type="image/png" href="./logo.png" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>POUCHEN QR | Fast URL to QR Code</title>
+    <meta name="description" content="Generate high-quality QR codes instantly from any URL with POUCHEN QR Code Generator. Simple, fast, and secure.">
+  </head>
+  <body>
+    <nav class="top-nav">
+      <div class="logo">
+        <img src="./logo.png" alt="POUCHEN Logo" width="44" height="44" style="border-radius: 8px;">
+        <h2 id="app-title">POUCHEN QR Code Generator</h2>
+      </div>
+
+      <div class="nav-actions">
+        <div class="lang-selector">
+          <button class="lang-btn">
+            <span>🇬🇧 EN</span>
+            <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 9l6 6 6-6"/></svg>
+          </button>
+          <div class="lang-dropdown">
+            <a href="#" data-lang="en"><span>🇬🇧</span> English</a>
+            <a href="#" data-lang="zh"><span>🇨🇳</span> 简体中文</a>
+            <a href="#" data-lang="tw"><span>🇹🇼</span> 繁體中文</a>
+            <a href="#" data-lang="mm"><span>🇲🇲</span> Myanmar</a>
+            <a href="#" data-lang="vn"><span>🇻🇳</span> Tiếng Việt</a>
+            <a href="#" data-lang="id"><span>🇮🇩</span> Indonesia</a>
+          </div>
+        </div>
+      </div>
+    </nav>
+
+    <div class="app-main">
+      <section id="sidebar" class="content-section">
+        <button id="sidebar-toggle" class="glass-toggle" title="Toggle Sidebar">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M15 18l-6-6 6-6"/></svg>
+        </button>
+        <div class="hero">
+          <h1>From URL to <br>QR Code, <span style="background: var(--primary-gradient); -webkit-background-clip: text; -webkit-text-fill-color: transparent;">instantly.</span></h1>
+        </div>
+
+        <div class="mode-switch-container">
+          <button id="mode-single" class="mode-btn active">Single</button>
+          <button id="mode-multiple" class="mode-btn">Multiple</button>
+        </div>
+
+        <div class="generator-ui">
+          <div class="template-section">
+            <label class="input-label" data-i18n="selectTemplate">Select Frame Template</label>
+            <div id="template-gallery" class="template-gallery">
+              <!-- Templates will be injected here -->
+            </div>
+          </div>
+
+          <div id="customization-section" class="input-container">
+            <label class="input-label" data-i18n="frameLabel">QR Code &amp; Frame Style</label>
+            <div class="customization-grid">
+              <div id="frame-bg-item" class="color-item">
+                <span>BG Color</span>
+                <input type="color" id="frame-color-picker" title="Frame Background Color">
+              </div>
+              <div id="frame-text-item" class="color-item">
+                <span>Text Color</span>
+                <input type="color" id="text-color-picker" title="Frame Text Color">
+              </div>
+              <div class="color-item">
+                <span>QR Color</span>
+                <input type="color" id="qr-color-picker" value="#000000" title="QR Code Pixel Color">
+              </div>
+              <div id="global-label-item" class="style-item" style="grid-column: span 2;">
+                <span>Global Label (Apply to all)</span>
+                <input type="text" id="global-label-input" placeholder="POUCHEN SECURE" maxlength="40" class="global-label-field">
+              </div>
+              <div class="style-item">
+                <span>QR Style</span>
+                <select id="qr-style-select">
+                  <option value="square">Square</option>
+                  <option value="dots">Dots</option>
+                </select>
+              </div>
+            </div>
+          </div>
+
+          <div class="input-container">
+            <div class="switch-wrapper">
+              <label class="switch">
+                <input type="checkbox" id="show-url-toggle" checked>
+                <span class="slider round"></span>
+              </label>
+              <label for="show-url-toggle" class="input-label-inline">Show URL below QR Code</label>
+            </div>
+          </div>
+
+          <div id="single-url-container" class="input-container">
+            <label class="input-label" data-i18n="targetUrl" for="url-input">Enter Target URL</label>
+            <div class="input-wrapper">
+              <input type="url" id="url-input" placeholder="https://example.com" autocomplete="off">
+              <button id="generate-btn" class="btn-generate">
+                <span class="btn-text" data-i18n="generate">Generate Now</span>
+                <div class="loading-spinner"></div>
+              </button>
+            </div>
+          </div>
+
+          <div id="multiple-url-container" class="input-container hidden">
+            <label class="input-label" for="multi-url-input">Enter Multiple URLs (one per line, or URL | Custom Text)</label>
+            <div class="input-wrapper-column">
+              <textarea id="multi-url-input" placeholder="https://google.com&#10;https://bing.com" rows="6"></textarea>
+              <button id="generate-multi-btn" class="btn-generate">
+                <span class="btn-text">Generate All</span>
+                <div class="loading-spinner"></div>
+              </button>
+            </div>
+          </div>
+        </div>
+
+        <footer class="sticky-footer">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="opacity: 0.7;"><circle cx="12" cy="12" r="10"></circle><path d="M14.83 14.83a4 4 0 1 1 0-5.66"></path></svg>
+          <span class="footer-text">2026 POUCHEN Vibe Coding Tools . PMA | Total Generated: <span id="lifetime-count">0</span></span>
+        </footer>
+      </section>
+
+      <aside class="preview-section">
+        <div id="preview-card" class="preview-card">
+          <div id="placeholder" class="preview-placeholder">
+            <svg width="84" height="84" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+              <rect x="3" y="3" width="18" height="18" rx="2" ry="2"/>
+              <line x1="12" y1="8" x2="12" y2="12"/>
+              <line x1="12" y1="16" x2="12.01" y2="16"/>
+            </svg>
+            <p data-i18n="placeholder">Your QR code will appear here</p>
+          </div>
+
+          <div id="qr-result-body" class="hidden" style="text-align: center; width: 100%;">
+            <canvas id="qrcode-canvas"></canvas>
+            
+            <div class="result-actions" style="margin-top: 2rem;">
+              <button id="download-btn" class="btn-icon">
+                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path><polyline points="7 10 12 15 17 10"></polyline><line x1="12" y1="15" x2="12" y2="3"></line></svg>
+                <span data-i18n="download">Download PNG</span>
+              </button>
+              <button id="copy-btn" class="btn-icon">
+                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path></svg>
+                <span data-i18n="copy">Copy Link</span>
+              </button>
+            </div>
+          </div>
+
+          <div id="qr-multi-result-body" class="hidden" style="width: 100%;">
+            <div class="multi-result-header">
+            <div class="header-title-group">
+               <h3>Generated QR Codes</h3>
+               <span id="total-count-badge" class="count-badge">0</span>
+            </div>
+               <button id="download-all-btn" class="btn-icon primary">
+                 <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path><polyline points="7 10 12 15 17 10"></polyline><line x1="12" y1="15" x2="12" y2="3"></line></svg>
+                 Download All
+               </button>
+            </div>
+            <div id="qr-grid" class="qr-grid">
+              <!-- Multiple QR codes will be injected here -->
+            </div>
+          </div>
+        </div>
+      </aside>
+    </div>
+
+    <!-- Edit Modal -->
+    <div id="edit-modal" class="modal hidden">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h3>Customize QR Code</h3>
+          <button id="close-modal" class="close-btn">&times;</button>
+        </div>
+        <div class="modal-body">
+          <div class="input-container">
+            <label class="input-label">Frame Label</label>
+            <input type="text" id="edit-label-input" placeholder="Enter label...">
+          </div>
+          <div class="customization-grid">
+            <div class="color-item">
+              <span>BG Color</span>
+              <input type="color" id="edit-bg-color">
+            </div>
+            <div class="color-item">
+              <span>Text Color</span>
+              <input type="color" id="edit-text-color">
+            </div>
+            <div class="color-item">
+              <span>QR Color</span>
+              <input type="color" id="edit-qr-color">
+            </div>
+            <div class="style-item">
+              <span>QR Style</span>
+              <select id="edit-qr-style">
+                <option value="square">Square</option>
+                <option value="dots">Dots</option>
+              </select>
+            </div>
+          </div>
+          <div class="input-container" style="margin-top: 1rem;">
+            <div class="switch-wrapper">
+              <label class="switch">
+                <input type="checkbox" id="edit-show-url">
+                <span class="slider round"></span>
+              </label>
+              <label class="input-label-inline">Show URL below QR Code</label>
+            </div>
+          </div>
+        </div>
+        <div class="modal-footer">
+          <button id="save-edit-btn" class="btn-generate btn-modal-save">Save Changes</button>
+        </div>
+      </div>
+    </div>
+
+    <script type="module" src="./src/main.js"></script>
+  </body>
+</html>
