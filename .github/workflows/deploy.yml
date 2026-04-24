@@ -19,12 +19,11 @@ jobs:
         uses: actions/setup-node@v4
         with:
           node-version: 22
-          cache: 'npm'
 
       - name: Install and Build 🔧
         run: |
-          npm install
-          npx vite build
+          yarn install
+          yarn build
 
       - name: Deploy 🚀
         uses: peaceiris/actions-gh-pages@v4
